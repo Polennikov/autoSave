@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {% if formErrors|length %}
+            <div class="alert alert-danger">
+                <h4>Предупреждения!</h4>
+                <ul>
+                    {% for error in formErrors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% elseif error %}
+            <ul class="alert alert-danger">
+                <h4>Предупреждения!</h4>
+                <li>{{ error }}</li>
+            </ul>
+        {% endif %}
+        <div class="card mb-4 shadow-sm">
+            <h3 class="mx-auto my-sm-3">Автомобиль</h3>
+                <div class="col-6 mx-auto my-sm-3">
+                    <div class="card mb-4 shadow-sm">
+
+                            <div class="card-header">
+                                {{ form_start(form) }}
+                                <h4>{{ form_label(form.name) }}</h4>
+                                <div>{{ form_widget(form.name) }}</div>
+                                <h4>{{ form_label(form.surname) }}</h4>
+                                <div>{{ form_widget(form.surname) }}</div>
+                                <h4>{{ form_label(form.mid_name) }}</h4>
+                                <div>{{ form_widget(form.mid_name) }}</div>
+                                <h4>{{ form_label(form.number_driver) }}</h4>
+                                <div>{{ form_widget(form.number_driver) }}</div>
+                                <h4>{{ form_label(form.date_driver) }}</h4>
+                                <div>{{ form_widget(form.date_driver) }}</div>
+                                <h4>{{ form_label(form.adress_driver) }}</h4>
+                                <div>{{ form_widget(form.adress_driver) }}</div>
+                                <h4>{{ form_label(form.exp_driver) }}</h4>
+                                <div>{{ form_widget(form.exp_driver) }}</div>
+                                <h4>{{ form_label(form.gender_driver) }}</h4>
+                                <div>{{ form_widget(form.gender_driver) }}</div>
+                                <h4>{{ form_label(form._kbm) }}</h4>
+                                <div>{{ form_widget(form._kbm) }}</div>
+                                <h4>{{ form_label(form.email) }}</h4>
+                                <div>{{ form_widget(form.email) }}</div>
+                                <h4>{{ form_label(form.password.first) }}</h4>
+                                <div>{{ form_widget(form.password.first) }}</div>
+                                <h4>{{ form_label(form.password.second) }}</h4>
+                                <div>{{ form_widget(form.password.second) }}</div>
+                                <button type="submit" class="btn btn-lg btn-primary ">Регистрация</button>
+                                {{ form_end(form) }}
+                            </div>
+
+
+                    </div>
+                </div>
+
+        </div>
+
+        </div>
+
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+<a href="{{ '/app/src/Controller/HomeController.php'|file_link(0) }}">оформить страховку </a>
+<a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}">добавить автомобиль</a>
+{% endblock %}
