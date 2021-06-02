@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Contract{% endblock %}
+
+{% block body %}
+    <!-- Flash message -->
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+    <!-- END Flash message -->
+    <div class="container">
+        <div class="card mb-4 shadow-sm my-sm-3">
+            <h3 class="mx-auto my-sm-3">Добавление cnhf[jdrb</h3>
+977889
+            <div class="card-body">
+                {{ include('contract/form_pay.html.twig') }}
+            </div>
+            <div class="card-header">
+
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

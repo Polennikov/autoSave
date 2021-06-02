@@ -23,6 +23,7 @@ class ProfileController extends AbstractController
 
         try {
             $result = $Client->getCurrentUser($this->getUser());
+            $contracts=$Client->getContractAll($this->getUser());
              //var_dump($result);
         } catch (ClientUnavailableException $e) {
             throw new \Exception($e->getMessage());
@@ -30,6 +31,7 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'ProfileController',
+            'contracts'=>$contracts,
             'autos'=>$result['autos'],
             'user' => $result
         ]);

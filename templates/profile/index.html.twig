@@ -57,6 +57,61 @@
                 </div>
             {% endfor %}
         </div>
+
+        <div class="card mb-4 shadow-sm">
+            <h3 class="mx-auto my-sm-3">Договора</h3>
+            {% for contract in contracts %}
+                <div class="col-6 mx-auto my-sm-3">
+
+                    <div class="card mb-4 shadow-sm">
+                        {# <a class="courseShow" href="{{ path('auto_show', {'vin': auto.vin}) }}"> #}
+                        <div class="card-header">
+                            <h3>На рассмотрении</h3>
+                        </div>
+                        {# </a> #}
+                        <div class="card-body"> {% if contract.status==2 %}
+                                Начало: {{ contract.date_start }} #
+                                Конец: {{ contract.date_end }}{% endif %}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6 mx-auto my-sm-3">
+
+                    <div class="card mb-4 shadow-sm">
+
+                        <div class="card-header">
+                            <h3>Действующие</h3>
+                        </div>
+
+                        <div class="card-body">
+                            {% if contract.status==1 %}
+                                Начало: {{ contract.date_start }} #
+                                Конец: {{ contract.date_end }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6 mx-auto my-sm-3">
+
+                    <div class="card mb-4 shadow-sm">
+
+                        <div class="card-header">
+                            <h3>Истекшие</h3>
+                        </div>
+
+                        <div class="card-body">
+                            {% if contract.status==3 %}
+                                Начало: {{ contract.date_start }} #
+                                Конец: {{ contract.date_end }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
     </div>

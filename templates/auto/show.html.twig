@@ -3,29 +3,31 @@
 {% block title %}Auto{% endblock %}
 
 {% block body %}
-    {% if auto != null%}
-    <div class="card mb-4 shadow-sm my-sm-3">
-        <h3 class="mx-auto my-sm-3">{{ auto.marka }} {{ auto.model }}</h3>
-        <div class="card-header">
-            Vin номер: {{ auto.vin }} #
-            Гос номер: {{ auto.number }}
+    {% if auto != null %}
+        <div class="card mb-4 shadow-sm my-sm-3">
+            <h3 class="mx-auto my-sm-3">{{ auto.marka }} {{ auto.model }}</h3>
+            <div class="card-header">
+                Vin номер: {{ auto.vin }} #
+                Гос номер: {{ auto.number }}
+            </div>
+            <div class="card-body">
+                Цвет: {{ auto.color }} #
+                Год: {{ auto.year }}
+
+
+            </div>
+            <div class="card-header">
+                Мощность: {{ auto.power }} #
+                Пробег: {{ auto.mileage }} км. #
+                Категория: {{ auto.category }}
+            </div>
         </div>
-        <div class="card-body">
-            Цвет: {{ auto.color }} #
-          Год: {{ auto.year }}
 
-
-        </div>
-        <div class="card-header">
-           Мощность: {{ auto.power }} #
-            Пробег: {{ auto.mileage }} км. #
-            Категория: {{ auto.category }}
-        </div>
-    </div>
-
-    <a href="{{ path('auto_edit', {'vin': auto.vin}) }}" class="btn btn-primary btn-lg mr-3">Изменить</a>
-
-    {{ include('auto/_delete_form.html.twig') }}
+        <a href="{{ path('auto_edit', {'vin': auto.vin}) }}" class="btn btn-primary btn-lg mr-3">Изменить</a>
+    {% if contract == true %}
+        <a href="{{ path('contract_new', {'vin': auto.vin}) }}" class="btn btn-primary btn-lg mr-3">Оформить полис</a>
+    {% endif %}
+        {{ include('auto/_delete_form.html.twig') }}
     {% endif %}
 
 {% endblock %}

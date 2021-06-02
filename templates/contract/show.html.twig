@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contract{% endblock %}
+
+{% block body %}
+    <h1>Contract</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contract.id }}</td>
+            </tr>
+            <tr>
+                <th>Date_start</th>
+                <td>{{ contract.date_start}}</td>
+            </tr>
+            <tr>
+                <th>Date_end</th>
+                <td>{{ contract.date_end ? contract.date_end|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ contract.amount }}</td>
+            </tr>
+            <tr>
+                <th>Purpose</th>
+                <td>{{ contract.purpose }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ contract.status }}</td>
+            </tr>
+            <tr>
+                <th>Agent_id</th>
+                <td>{{ contract.agent_id }}</td>
+            </tr>
+            <tr>
+                <th>Date_start_one</th>
+                <td>{{ contract.date_start_one ? contract.date_start_one|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_end_one</th>
+                <td>{{ contract.date_end_one ? contract.date_end_one|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_start_two</th>
+                <td>{{ contract.date_start_two ? contract.date_start_two|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_end_two</th>
+                <td>{{ contract.date_end_two ? contract.date_end_two|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_start_three</th>
+                <td>{{ contract.date_start_three ? contract.date_start_three|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_end_three</th>
+                <td>{{ contract.date_end_three ? contract.date_end_three|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Diagnostic_card</th>
+                <td>{{ contract.diagnostic_card }}</td>
+            </tr>
+            <tr>
+                <th>Non_limited</th>
+                <td>{{ contract.non_limited ? 'Yes' : 'No' }}</td>
+            </tr>
+            {% for drivers in contract.drivers  %}
+                <tr>
+                    <th>Driver_one</th>
+                    <td>{{ drivers.id }}</td>
+                </tr>
+
+            {% endfor %}
+
+
+        </tbody>
+    </table>
+
+   {# <a href="{{ path('contract_index') }}">back to list</a>
+
+    <a href="{{ path('contract_edit', {'id': contract.id}) }}">edit</a>
+
+    {{ include('contract/_delete_form.html.twig') }}#}
+{% endblock %}

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @Route("/auto")
@@ -79,13 +80,28 @@ class AutoController extends AbstractController
     {
         $vin  = $request->get('vin');
         $auto = $Client->getAuto($this->getUser(), $vin);
-        if (isset($auto['code']) && $auto['code']==404) {
+
+
+        $contractVal=true;
+
+        if (isset($auto['code']) && $auto['code'] == 404) {
             return $this->render('auto/show.html.twig', [
                 'auto' => null,
             ]);
         } else {
+            if (isset($auto['contracts'])) {
+                foreach ($auto['contracts'] as $contract) {
+
+                    if(new DateTime($contract['date_end']) > new DateTime(date('Y-m-d H:i:s')))
+                    {
+                        $contractVal=false;
+                    }
+                }
+            }
+
             return $this->render('auto/show.html.twig', [
                 'auto' => $auto,
+                'contract' => $contractVal,
             ]);
         }
     }

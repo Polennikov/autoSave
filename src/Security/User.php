@@ -8,12 +8,13 @@ class User implements UserInterface
 {
     private $email;
 
-    private $roles = [];
+    private $password;
 
     private $apiToken;
 
-    private $refreshToken;
+    private $roles = [];
 
+    private $refreshToken;
 
     public function getEmail(): ?string
     {
@@ -23,30 +24,6 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setApiToken(string $apiToken): self
-    {
-        $this->apiToken = $apiToken;
-
-        return $this;
-    }
-
-    public function getRefreshToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setRefreshToken(string $getRefreshToken): self
-    {
-        $this->getRefreshToken = $getRefreshToken;
 
         return $this;
     }
@@ -81,17 +58,24 @@ class User implements UserInterface
     }
 
     /**
-     * This method can be removed in Symfony 6.0 - is not needed for apps that do not check user passwords.
+     * This method is not needed for apps that do not check user passwords.
      *
      * @see UserInterface
      */
     public function getPassword(): ?string
     {
-        return null;
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
-     * This method can be removed in Symfony 6.0 - is not needed for apps that do not check user passwords.
+     * This method is not needed for apps that do not check user passwords.
      *
      * @see UserInterface
      */
@@ -107,5 +91,30 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+
+    public function getApiToken(): string
+    {
+        return $this->apiToken;
+    }
+
+    public function setApiToken(string $apiToken): self
+    {
+        $this->apiToken = $apiToken;
+
+        return $this;
+    }
+
+    public function getRefreshToken(): string
+    {
+        return $this->refreshToken;
+    }
+
+    public function setRefreshToken(string $refreshToken): self
+    {
+        $this->refreshToken = $refreshToken;
+
+        return $this;
     }
 }
