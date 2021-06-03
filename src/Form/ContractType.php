@@ -62,7 +62,7 @@ class ContractType extends AbstractType
                 [
                     'label'    => 'Сумма',
                     'required' => false,
-                    'disabled' => true,
+                   /* 'disabled' => true,*/
                 ])
             ->add('diagnostic_card', TextType::class,
                 [
@@ -142,14 +142,15 @@ class ContractType extends AbstractType
                     ],
                 ])
 
-            ->add('period_two', CheckboxType::class,
+           /* ->add('period_two', CheckboxType::class,
                 [
                     'label'    => 'Период 2',
                     'required' => false,
-                ])
+                ])*/
             ->add('date_start_two', DateType::class,
                 [
                     'required'   => false,
+                    'mapped'      => false,
                     'label'      => 'Период начала 2',
                     'years'      => range(date('Y'), date('Y') + 1),
                     'months'     => range(date('m'), date('m') + 12),
@@ -161,24 +162,27 @@ class ContractType extends AbstractType
                 [
                     'label'       => 'Период окончания 2',
                     'required'   => false,
+                    'mapped'      => false,
+                    'empty_data' => '',
                     'label'      => 'Период начала 2',
                     'years'      => range(date('Y'), date('Y') + 2),
                     'months'     => range(date('m'), date('m') + 12),
                     'days'       => range(date('d'), date('d') + 31),
                     'widget'     => 'single_text',
-                    'empty_data' => '',
+
                 ])
 
 
-            ->add('period_three', CheckboxType::class,
+           /* ->add('period_three', CheckboxType::class,
                 [
                     'label'    => 'Период 3',
                     'required' => false,
-                ])
+                ])*/
             ->add('date_start_three', DateType::class,
                 [
                     'label'       => 'Период начала 3',
                     'required'   => false,
+                    'mapped'      => false,
                     'label'      => 'Период начала 2',
                     'years'      => range(date('Y'), date('Y') + 2),
                     'months'     => range(date('m'), date('m') + 12),
@@ -190,6 +194,7 @@ class ContractType extends AbstractType
                 [
                     'label'       => 'Период окончания 3',
                     'required'   => false,
+                    'mapped'      => false,
                     'label'      => 'Период начала 2',
                     'widget'     => 'single_text',
                     'empty_data' => '',

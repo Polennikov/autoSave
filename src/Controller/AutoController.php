@@ -179,11 +179,9 @@ class AutoController extends AbstractController
                     'auto' => $autos,
                 ]);
             }
-            $autos = $Client->getAuto($this->getUser(), $vin);
-
-            return $this->render('auto/show.html.twig', [
-                'auto' => $autos,
-            ]);
+            //$autos = $Client->getAuto($this->getUser(), $vin);
+            return $this->redirectToRoute('home');
+            ///return $this->render('home');
 
         }
     }

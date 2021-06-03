@@ -3,7 +3,32 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_AGENT') %}
 
-    <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('contract_new') }}">добавить страовку</a>
-<a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}">добавить автомобиль</a>
+    <div class="card mb-4 shadow-sm">
+        <h3 class="mx-auto my-sm-3"> Новые договора</h3>
+        {% for contract in contracts %}
+            <div class="col-6 mx-auto my-sm-3">
+
+                <div class="card mb-4 shadow-sm">
+                    <a class="" href="{{ path('contract_edit', {'id': contract.id}) }}">
+                        <div class="card-header">
+                            Cтраховая премия: {{ contract.amount }} #
+                        </div>
+
+                    <div class="card-body"> {% if contract.status==2 %}
+                            Начало: {{ contract.date_start }} #
+                            Конец: {{ contract.date_end }}{% endif %}
+                    </div>
+                    </a>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if is_granted('ROLE_USER')%}
+        <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}"> Добавить автомобиль</a>
+
+{% endif %}
 {% endblock %}

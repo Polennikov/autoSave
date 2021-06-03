@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AgentController!{% endblock %}
+
+{% block body %}
+    <div class="card mb-4 shadow-sm">
+        <h3 class="mx-auto my-sm-3">Договор</h3>
+        <div class="col-6 mx-auto my-sm-3">
+            <div class="card mb-4 shadow-sm">
+                {# <a class="courseShow" href="{{ path('auto_show', {'vin': auto.vin}) }}"> #}
+                <div class="card-header">
+                    <h3>На рассмотрении</h3>
+                </div>
+                {# </a> #}
+                <div class="card-body">
+                    {% if contract.status==2 %}
+                        Начало: {{ contract.date_start }} #
+                        Конец: {{ contract.date_end }}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -3,11 +3,24 @@
 {% block title %}Edit Contract{% endblock %}
 
 {% block body %}
-    <h1>Edit Contract</h1>
+    <div class="container">
+        <div class="card mb-4 shadow-sm my-sm-3">
+            <h3 class="mx-auto my-sm-3">Добавление договора</h3>
+            <div class="card-header">
 
-    {{ include('contract/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('contract_index') }}">back to list</a>
+            </div>
+            <div class="card-body">
+                {{ include('contract/_form.html.twig', {'button_label': 'Отправить'}) }}
+            </div>
 
-    {{ include('contract/_delete_form.html.twig') }}
+
+        </div>
+    </div>
+
+
+
+
+
+   {# {{ include('contract/_delete_form.html.twig') }}#}
 {% endblock %}

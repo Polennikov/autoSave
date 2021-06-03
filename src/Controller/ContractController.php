@@ -37,6 +37,9 @@ class ContractController extends AbstractController
     {
         $contract = new Contract();
         $form     = $this->createForm(ContractType::class, $contract);
+
+        $form->remove('amount');
+
         $form->handleRequest($request);
 
         $vin = $request->get('vin');
@@ -48,16 +51,16 @@ class ContractController extends AbstractController
                 $dateTwoStart = "null";
                 $dateTwoEnd   = "null";
             } else {
-                $dateTwoStart    = $form->get('date_start_two')->getNormData();
-                $dateTwoEnd = $form->get('date_end_two')->getNormData();
+                $dateTwoStart = $form->get('date_start_two')->getNormData();
+                $dateTwoEnd   = $form->get('date_end_two')->getNormData();
             }
 
             if ($form->get('date_start_three')->getNormData() == null) {
                 $dateThreeStart = "null";
                 $dateThreeEnd   = "null";
             } else {
-                $dateThreeStart    = $form->get('date_start_three')->getNormData();
-                $dateThreeEnd = $form->get('date_end_three')->getNormData();
+                $dateThreeStart = $form->get('date_start_three')->getNormData();
+                $dateThreeEnd   = $form->get('date_end_three')->getNormData();
             }
 
 
@@ -90,7 +93,7 @@ class ContractController extends AbstractController
             ];
 
             var_dump($serializer->serialize($dataRequest, 'json'));
-           // exit();
+            // exit();
             $contract = $Client->newContract($this->getUser(), $serializer->serialize($dataRequest, 'json'));
 
             var_dump($contract['id']);
@@ -99,8 +102,15 @@ class ContractController extends AbstractController
             return $this->redirectToRoute('contract_pay', ['id' => $contract['id']]);
 
         }
-
+        $pos = strpos($request->getRequestUri(), 'edit');
+        //var_dump($request->getRequestUri());
+        if($pos!=false){
+            $pos=true;
+        }else{
+            $pos=false;
+        }
         return $this->render('contract/new.html.twig', [
+            'pos'=>$pos,
             //'$dataRequest' => $dataRequest,
             'form' => $form->createView(),
         ]);
@@ -175,18 +185,81 @@ class ContractController extends AbstractController
     /**
      * @Route("/{id}/edit", name="contract_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Contract $contract): Response
+    public function edit(Request $request, Client $Client, SerializerInterface $serializer): Response
     {
-        $form = $this->createForm(Contract1Type::class, $contract);
+        $id       = $request->get('id');
+        $contract = $Client->getContract($this->getUser(), $id);
+        //var_dump($contract);
+        $form = $this->createForm(ContractType::class, $contract);
+
+        $form->remove('driver_one');
+        $form->remove('driver_two');
+        $form->remove('driver_three');
+        $form->remove('driver_four');
         $form->handleRequest($request);
+        //print_r($request->getRequestUri());
+        $pos = strpos($request->getRequestUri(), 'edit');
+        if(isset($pos)){
+            $pos=true;
+        }else{
+            $pos=false;
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            if ($form->get('date_start_two')->getNormData() == null) {
+                $dateTwoStart = "null";
+                $dateTwoEnd   = "null";
+            } else {
+                $dateTwoStart = $form->get('date_start_two')->getNormData();
+                $dateTwoEnd   = $form->get('date_end_two')->getNormData();
+            }
 
-            return $this->redirectToRoute('contract_index');
+            if ($form->get('date_start_three')->getNormData() == null) {
+                $dateThreeStart = "null";
+                $dateThreeEnd   = "null";
+            } else {
+                $dateThreeStart = $form->get('date_start_three')->getNormData();
+                $dateThreeEnd   = $form->get('date_end_three')->getNormData();
+            }
+            // Запрос в сервис billing для создания курса
+            $dataRequest = [
+                'date_start' => $form->get('date_start')->getNormData(),
+                'date_end'   => $form->get('date_end')->getNormData(),
+
+                'purpose'         => $form->get('purpose')->getNormData(),
+                'amount'          =>$form->get('amount')->getNormData(),
+                'diagnostic_card' => $form->get('diagnostic_card')->getNormData(),
+                'non_limited'     =>  $form->get('non_limited')->getNormData(),
+                'status'          => "1",
+                'auto_vin'        => $contract['auto_vin'],
+                'agent_id'        => $this->getUser()->getUsername(),
+
+                'driver_one'   => $contract['driver_one'],
+                'driver_two'   => $contract['driver_two'],
+                'driver_three' => $contract['driver_three'],
+                'driver_four'  => $contract['driver_four'],
+
+                'date_start_one' => $form->get('date_start_one')->getNormData(),
+                'date_end_one'   => $form->get('date_end_one')->getNormData(),
+
+                'date_start_two' => $dateTwoStart,
+                'date_end_two'   => $dateTwoEnd,
+
+                'date_start_three' => $dateThreeStart,
+                'date_end_three'   => $dateThreeEnd,
+            ];
+
+           // var_dump($serializer->serialize($dataRequest, 'json'));
+            // exit();
+            $contract = $Client->editContract($this->getUser(), $contract['id'], $serializer->serialize($dataRequest, 'json'));
+
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('contract/edit.html.twig', [
+            'pos'=>$pos,
             'contract' => $contract,
             'form'     => $form->createView(),
         ]);
@@ -205,4 +278,6 @@ class ContractController extends AbstractController
 
         return $this->redirectToRoute('contract_index');
     }
+
+
 }

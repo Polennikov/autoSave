@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AutoRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,6 +63,41 @@ class Auto
      * @ORM\Column(type="string", length=5)
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Contract::class, mappedBy="auto")
+     */
+    private $contracts;
+
+    /**
+     * @return Collection|Contract[]
+     */
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function addContracts(Contract $contract): self
+    {
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts[] = $contract;
+            $contract->setAuto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContracts(Contract $Contract): self
+    {
+        if ($this->contracts->removeElement($Contract)) {
+            // set the owning side to null (unless already changed)
+            if ($Contract->getAuto() === $this) {
+                $Contract->setAuto(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function getId(): ?int
     {

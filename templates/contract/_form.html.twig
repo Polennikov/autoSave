@@ -1,4 +1,94 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_start(form) }}
+
+<label>Дата начала</label>
+<div class="form-group">
+    {{ form_widget(form.date_start) }}
+    {{ form_errors(form.date_start) }}
+</div>
+
+<label>Дата окончания</label>
+<div class="form-group">
+    {{ form_widget(form.date_end) }}
+    {{ form_errors(form.date_end) }}
+</div>
+
+<label>Цель использования ТС</label>
+<div class="form-group">
+    {{ form_widget(form.purpose) }}
+    {{ form_errors(form.purpose) }}
+</div>
+<label>Номер Диагностической карты</label>
+<div class="form-group">
+    {{ form_widget(form.diagnostic_card) }}
+    {{ form_errors(form.diagnostic_card) }}
+</div>
+<label>Ограничения страховки</label>
+<div class="form-group">
+    {{ form_widget(form.non_limited) }}
+    {{ form_errors(form.non_limited) }}
+</div>
+{% if pos == 1 %}
+<label>СУММА</label>
+<div class="form-group">
+    {{ form_widget(form.amount) }}
+    {{ form_errors(form.amount) }}
+</div>
+{% else %}
+    <label>Первый водитель</label>
+    <div class="form-group">
+        {{ form_widget(form.driver_one) }}
+        {{ form_errors(form.driver_one) }}
+    </div>
+    <label>Второй водитель</label>
+    <div class="form-group">
+        {{ form_widget(form.driver_two) }}
+        {{ form_errors(form.driver_two) }}
+    </div>
+    <label>Третий водитель</label>
+    <div class="form-group">
+        {{ form_widget(form.driver_three) }}
+        {{ form_errors(form.driver_three) }}
+    </div>
+    <label>Четвертый водитель</label>
+    <div class="form-group">
+        {{ form_widget(form.driver_four) }}
+        {{ form_errors(form.driver_four) }}
+    </div>
+
+
+{% endif %}
+
+<label>Период начала 1</label>
+<div class="form-group">
+    {{ form_widget(form.date_start_one) }}
+    {{ form_errors(form.date_start_one) }}
+</div>
+<label>Период окончания 1</label>
+<div class="form-group">
+    {{ form_widget(form.date_end_one) }}
+    {{ form_errors(form.date_end_one) }}
+</div>
+<label>Период начала 2</label>
+<div class="form-group">
+    {{ form_widget(form.date_start_two) }}
+    {{ form_errors(form.date_start_two) }}
+</div>
+<label>Период окончания 2</label>
+<div class="form-group">
+    {{ form_widget(form.date_end_two) }}
+    {{ form_errors(form.date_end_two) }}
+</div>
+<label>Период окончания 3</label>
+<div class="form-group">
+    {{ form_widget(form.date_start_three) }}
+    {{ form_errors(form.date_start_three) }}
+</div>
+
+<label>Период окончания 3</label>
+<div class="form-group">
+    {{ form_widget(form.date_end_three) }}
+    {{ form_errors(form.date_end_three) }}
+</div>
+{#    {{ form_widget(form) }}#}
     <button class="btn btn-primary btn-l">{{ button_label|default('Отправить') }}</button>
 {{ form_end(form) }}

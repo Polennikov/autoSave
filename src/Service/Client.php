@@ -375,6 +375,64 @@ class Client
     /**
      * @throws ClientUnavailableException
      */
+    public function getContractAgent(User $user): array
+    {
+        // Запрос в сервис биллинг, получение данных
+        $curl = curl_init($this->baseUri.'/api/v1/contract/agent');
+        curl_setopt($curl, CURLOPT_HTTPGET, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer '.$user->getApiToken(),
+        ]);
+        $response = curl_exec($curl);
+
+        // Ошибка биллинга
+        if (!$response) {
+            throw new ClientUnavailableException('Сервис временно недоступен. Попробуйте зарегистироваться позднее.');
+        }
+
+        curl_close($curl);
+
+        // Ответ от сервиса
+        $result = json_decode($response, true);
+
+        return $result;
+    }
+
+    /**
+     * @throws ClientUnavailableException
+     */
+    public function getUsersContract(User $user): array
+    {
+        // Запрос в сервис биллинг, получение данных
+        $curl = curl_init($this->baseUri.'/api/v1/contract/agent');
+        curl_setopt($curl, CURLOPT_HTTPGET, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer '.$user->getApiToken(),
+        ]);
+        $response = curl_exec($curl);
+
+        // Ошибка биллинга
+        if (!$response) {
+            throw new ClientUnavailableException('Сервис временно недоступен. Попробуйте зарегистироваться позднее.');
+        }
+
+        curl_close($curl);
+
+        // Ответ от сервиса
+        $result = json_decode($response, true);
+
+        return $result;
+    }
+
+
+
+    /**
+     * @throws ClientUnavailableException
+     */
     public function getIndexKt(User $user): array
     {
 
