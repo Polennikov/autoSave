@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="card mb-4 shadow-sm">
+
+        <h3 class="mx-auto my-sm-3">Договор</h3>
+        <div class="col-6 mx-auto my-sm-3">
+            <div class="card mb-4 shadow-sm">
+
+                <div class="card-header">
+                    <canvas id="img" style="border:1px solid #000000"></canvas>
+                </div>
+
+                <div class="card-body">
+                    <input type="button" class="btn btn-outline-primary btn-lg mx-3" value="Сохранить" onClick="get()">
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        var canv = document.getElementById("img"),
+            c = canv.getContext("2d");
+
+        var img = new Image();
+
+        img.src = '/Blank/blanc-osago.jpg';
+
+        img.onload = function () {
+            canv.width = img.width;
+            canv.height = img.height;
+            c.drawImage(img, 0, 0);
+            c.font = "14px Times New Roman";
+            var text = "тут";
+            c.fillText("{{ contract.amount }}", canv.width - 550, canv.height - 205);
+            c.fillText("{{ contract.purpose }}", canv.width / 5 - text.length / 2 * 15, canv.height / 2 - 5);
+        };
+
+        function get() {
+            var link = document.createElement("a");
+            link.download = "download";
+            link.href = canv.toDataURL(["image/jpg"]);
+            link.click();
+
+        }
+    </script>
+{% endblock %}

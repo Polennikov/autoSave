@@ -104,13 +104,14 @@ class ContractController extends AbstractController
         }
         $pos = strpos($request->getRequestUri(), 'edit');
         //var_dump($request->getRequestUri());
-        if($pos!=false){
-            $pos=true;
-        }else{
-            $pos=false;
+        if ($pos != false) {
+            $pos = true;
+        } else {
+            $pos = false;
         }
+
         return $this->render('contract/new.html.twig', [
-            'pos'=>$pos,
+            'pos'  => $pos,
             //'$dataRequest' => $dataRequest,
             'form' => $form->createView(),
         ]);
@@ -157,29 +158,16 @@ class ContractController extends AbstractController
         $id       = $request->get('id');
         $contract = $Client->getContract($this->getUser(), $id);
 
-        $contractVal = true;
-
         if (isset($auto['code']) && $auto['code'] == 404) {
             return $this->render('contract/show.html.twig', [
                 'contract' => null,
             ]);
-        } /*else {
-            if (isset($auto['contracts'])) {
-                foreach ($auto['contracts'] as $contract) {
+        }
 
-                    if(new DateTime($contract['date_end']) > new DateTime(date('Y-m-d H:i:s')))
-                    {
-                        $contractVal=false;
-                    }
-                }
-            }*/
-
-//var_dump($contract['drivers']);
         return $this->render('contract/show.html.twig', [
             'contract' => $contract,
-            /*'contract' => $contractVal,*/
         ]);
-        // }
+
     }
 
     /**
@@ -199,10 +187,10 @@ class ContractController extends AbstractController
         $form->handleRequest($request);
         //print_r($request->getRequestUri());
         $pos = strpos($request->getRequestUri(), 'edit');
-        if(isset($pos)){
-            $pos=true;
-        }else{
-            $pos=false;
+        if (isset($pos)) {
+            $pos = true;
+        } else {
+            $pos = false;
         }
 
 
@@ -228,9 +216,9 @@ class ContractController extends AbstractController
                 'date_end'   => $form->get('date_end')->getNormData(),
 
                 'purpose'         => $form->get('purpose')->getNormData(),
-                'amount'          =>$form->get('amount')->getNormData(),
+                'amount'          => $form->get('amount')->getNormData(),
                 'diagnostic_card' => $form->get('diagnostic_card')->getNormData(),
-                'non_limited'     =>  $form->get('non_limited')->getNormData(),
+                'non_limited'     => $form->get('non_limited')->getNormData(),
                 'status'          => "1",
                 'auto_vin'        => $contract['auto_vin'],
                 'agent_id'        => $this->getUser()->getUsername(),
@@ -250,16 +238,17 @@ class ContractController extends AbstractController
                 'date_end_three'   => $dateThreeEnd,
             ];
 
-           // var_dump($serializer->serialize($dataRequest, 'json'));
+            // var_dump($serializer->serialize($dataRequest, 'json'));
             // exit();
-            $contract = $Client->editContract($this->getUser(), $contract['id'], $serializer->serialize($dataRequest, 'json'));
+            $contract = $Client->editContract($this->getUser(), $contract['id'],
+                $serializer->serialize($dataRequest, 'json'));
 
 
             return $this->redirectToRoute('home');
         }
 
         return $this->render('contract/edit.html.twig', [
-            'pos'=>$pos,
+            'pos'      => $pos,
             'contract' => $contract,
             'form'     => $form->createView(),
         ]);
@@ -279,5 +268,23 @@ class ContractController extends AbstractController
         return $this->redirectToRoute('contract_index');
     }
 
+    /**
+     * @Route("/blanc/{id}", name="blanc", methods={"GET","POST"})
+     */
+    public function blanc(Request $request, Client $Client)
+    {
+        $id       = $request->get('id');
+        $contract = $Client->getContract($this->getUser(), $id);
 
+        if (isset($auto['code']) && $auto['code'] == 404) {
+            return $this->render('contract/blanc.html.twig', [
+                'contract' => null,
+            ]);
+        }
+//var_dump($contract);
+        return $this->render('contract/blanc.html.twig', [
+            'contract' => $contract,
+        ]);
+
+    }
 }

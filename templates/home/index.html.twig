@@ -26,9 +26,11 @@
             </div>
         {% endfor %}
     </div>
-    {% endif %}
-    {% if is_granted('ROLE_USER')%}
+    {% else %}
+    {% if is_granted('ROLE_USER') %}
         <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}"> Добавить автомобиль</a>
 
 {% endif %}
+    {% endif %}
+
 {% endblock %}
