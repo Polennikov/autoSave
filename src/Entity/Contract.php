@@ -129,6 +129,10 @@ class Contract
      */
     private $period_three;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $trailer;
 
     public function __construct()
     {
@@ -445,6 +449,18 @@ class Contract
     public function setDriverFour(string $driver_four): self
     {
         $this->driver_four = $driver_four;
+
+        return $this;
+    }
+
+    public function getTrailer(): ?bool
+    {
+        return $this->trailer;
+    }
+
+    public function setTrailer(bool $trailer): self
+    {
+        $this->trailer = $trailer;
 
         return $this;
     }

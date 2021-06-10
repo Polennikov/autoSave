@@ -1,4 +1,57 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary btn-lg">{{ button_label|default('Добавить') }}</button>
+<label>Vin номер</label>
+<div class="form-group">
+    {{ form_widget(form.vin, { 'attr': {'class': 'form-control', 'placeholder': 'Введите VIN номер ТС'}  }) }}
+    {{ form_errors(form.vin) }}
+</div>
+
+<label>Марка</label>
+<div class="form-group">
+    {{ form_widget(form.marka, { 'attr': {'class': 'form-control', 'placeholder': 'Введите марку ТС'}  }) }}
+    {{ form_errors(form.marka) }}
+</div>
+
+<label>Модель</label>
+<div class="form-group">
+    {{ form_widget(form.model,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите модель ТС'}  }) }}
+    {{ form_errors(form.model) }}
+</div>
+<label>Регистрационный номер</label>
+<div class="form-group">
+    {{ form_widget(form.number, { 'attr': {'class': 'form-control', 'placeholder': 'Введите гос номер ТС'}  }) }}
+    {{ form_errors(form.number) }}
+</div>
+<label>Цвет</label>
+<div class="form-group">
+    {{ form_widget(form.color,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите цвет ТС'}  }) }}
+    {{ form_errors(form.color) }}
+</div>
+<label>Номер СТС</label>
+<div class="form-group">
+    {{ form_widget(form.number_sts,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите номер свидетельства о регистрации ТС'}  }) }}
+    {{ form_errors(form.number_sts) }}
+</div>
+
+<label>Год выпуска</label>
+<div class="form-group">
+    {{ form_widget(form.year,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите год выпуска ТС'}  }) }}
+    {{ form_errors(form.year) }}
+</div>
+
+<label>Мощность</label>
+<div class="form-group">
+    {{ form_widget(form.power,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите мощность в (л/с)'}  }) }}
+    {{ form_errors(form.power) }}
+</div>
+<label>Пробег (км)</label>
+<div class="form-group">
+    {{ form_widget(form.mileage,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите пробег ТС'}  }) }}
+    {{ form_errors(form.mileage) }}
+</div>
+<label>Категория ТС</label>
+<div class="form-group">
+    {{ form_widget(form.category,{ 'attr': {'class': 'form-control'}  }) }}
+    {{ form_errors(form.category) }}
+</div>
+<button class="btn btn-primary btn-lg">{{ button_label|default('Добавить') }}</button>
 {{ form_end(form) }}

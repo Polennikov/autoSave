@@ -13,11 +13,12 @@
         </div>
     {% endfor %}
     <!-- END Flash message -->
-    <div class="container">
-        <div class="card mb-4 shadow-sm my-sm-3">
-            <h3 class="mx-auto my-sm-3">Добавление договора</h3>
+<div class="card mb-4 shadow-sm">
+    <h3 class="mx-auto my-sm-3">Новый договор</h3>
+    <div class="col-6 mx-auto my-sm-3">
+        <div class="card mb-4 shadow-sm">
 
-            <div class="card-body">
+            <div class="card-header">
                 {{ include('contract/_form.html.twig') }}
             </div>
             <div class="card-header">
@@ -27,4 +28,5 @@
 
         </div>
     </div>
+</div>
 {% endblock %}

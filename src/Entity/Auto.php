@@ -41,6 +41,11 @@ class Auto
     /**
      * @ORM\Column(type="string", length=100)
      */
+    private $number_sts;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
     private $color;
 
     /**
@@ -148,6 +153,17 @@ class Auto
     public function setNumber(string $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+    public function getNumberSts(): ?string
+    {
+        return $this->number_sts;
+    }
+
+    public function setNumberSts(string $number_sts): self
+    {
+        $this->number_sts = $number_sts;
 
         return $this;
     }

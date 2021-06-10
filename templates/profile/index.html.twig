@@ -4,125 +4,194 @@
 
 {% block body %}
 
+    <style>
+        #main {
+            background-color: #f2f2f2;
+            padding: 20px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            border-radius: 4px;
+            border-bottom: 4px solid #ddd;
+        }
 
-    <div class="container">
-        <div class="card mb-4 shadow-sm my-sm-3">
-            <h3 class="mx-auto my-sm-3">Личный кабинет</h3>
-            <div class="card-header">
-                <h4>Фио:</h4>
-                <h5>{{ user.surname }}</h5>
-                <h5>{{ user.name }}</h5>
-                <h5>{{ user.midName }}</h5>
-            </div>
-            <div class="card-body">
-                <h4>Номер водительского:</h4>
-                <h5>{{ user.number_driver }}</h5>
-                <h4>Адрес:</h4>
-                <h5>{{ user.adressDriver }}</h5>
-                <h4>Стаж:</h4>
-                <h5>{{ user.expDriver }} год</h5>
-                <h4>КБМ:</h4>
-                <h5>{{ user.kbm }}</h5>
-            </div>
-            <div class="card-header">
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <h4>
-                        <div id="users"> Администратор</div>
-                    </h4>
+        #real-estates-detail #author img {
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            border-radius: 100%;
+            border: 5px solid #ecf0f1;
+            margin-bottom: 10px;
+        }
 
-                {% else %}
-                    <h4>
-                        <div id="users"> Пользователь</div>
-                    </h4>
-                {% endif %}
+        #real-estates-detail .sosmed-author i.fa {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #bdc3c7;
+            color: #bdc3c7;
+            padding-top: 6px;
+            margin-top: 10px;
+        }
 
-            </div>
+        .panel-default .panel-heading {
+            background-color: #fff;
+        }
+
+        #real-estates-detail .slides li img {
+            height: 450px;
+        }
+    </style>
+
+    <!-- Flash message -->
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success">
+            {{ message }}
         </div>
-        <div class="card mb-4 shadow-sm">
-            <h3 class="mx-auto my-sm-3">Автомобили</h3>
-            {% for auto in autos %}
-                <div class="col-6 mx-auto my-sm-3">
-                    <div class="card mb-4 shadow-sm">
-                        <a class="courseShow" href="{{ path('auto_show', {'vin': auto.vin}) }}">
-                            <div class="card-header">
-                                <h3>{{ auto.marka }}</h3>
-                                <h3>{{ auto.model }}</h3>
+    {% endfor %}
+    <!-- END Flash message -->
+    <div id="main">
+        <div class="row" id="real-estates-detail">
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <header class="panel-title">
+                            <div class="text-center">
+                                <strong>Информация пользователя</strong>
                             </div>
-                        </a>
-                        <div class="card-body">
-                            VIN: {{ auto.vin }} #
-                            Гос номер: {{ auto.number }}
+                        </header>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center" id="author">
+                            <h4>{{ user.surname }}
+                                {{ user.name }}
+                                {{ user.midName }}</h4>
+                            <small class="label label-warning">Данные</small>
+                            <h4>Номер водительского:</h4>
+                            <h5>{{ user.numberDriver }}</h5>
+                            <h4>Адрес:</h4>
+                            <h5>{{ user.adressDriver }}</h5>
+                            <h4>Стаж:</h4>
+                            <h5>{{ user.expDriver }} год</h5>
+                            <h4>КБМ:</h4>
+                            <h5>{{ user.kbm }}</h5>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-
-        <div class="card mb-4 shadow-sm">
-            <h3 class="mx-auto my-sm-3">Договора</h3>
-
-            <div class="col-6 mx-auto my-sm-3">
-
-                <div class="card mb-4 shadow-sm">
-                    {# <a class="courseShow" href="{{ path('auto_show', {'vin': auto.vin}) }}"> #}
-                    <div class="card-header">
-                        <h3>На рассмотрении</h3>
-                    </div>
-                    {# </a> #}
-                    <div class="card-body">
-                        {% for contract in contracts %}
-                            {% if contract.status==2 %}
-                                Начало: {{ contract.date_start }} #
-                                Конец: {{ contract.date_end }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <ul id="myTab" class="nav nav-pills">
+                            <li class="active"><a href="#auto" data-toggle="tab">Автомобили</a></li>
+                            {% if contracts!='null' %}
+                                <li class=""><a href="#contract" data-toggle="tab">Договора</a></li>
                             {% endif %}
-                        {% endfor %}
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <hr>
+                            <div class="tab-pane fade active in" id="auto">
+
+                                {% for auto in autos %}
+                                    <div class="card mb-4 shadow-sm">
+                                        <a class="courseShow" href="{{ path('auto_show', {'vin': auto.vin}) }}">
+                                            <div class="card-header">
+                                                <h3>{{ auto.marka }} {{ auto.model }}</h3>
+                                            </div>
+                                        </a>
+                                        <div class="card-body">
+                                            VIN: {{ auto.vin }} #
+                                            Гос номер: {{ auto.number }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                            <div class="tab-pane fade" id="contract">
+                                <div class="card mb-4 shadow-sm">
+
+                                    <div class="card mb-4 shadow-sm">
+
+                                        <div class="card-header">
+                                            <h3>Ожидают оплату</h3>
+                                        </div>
+
+                                        <div class="card-body">
+                                            {% for contract in contracts %}
+                                                {% if contract.status==2 %}
+                                                    Начало: {{ contract.date_start }}
+                                                    Конец: {{ contract.date_end }}#
+                                                <a class="profile btn btn-secondary" href="{{ path('contract_pay', {'id': contract.id}) }}">Оплатить
+                                            </a>
+                                                    <br/>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="card mb-4 shadow-sm">
+                                        {# <a class="courseShow" href="{{ path('auto_show', {'vin': auto.vin}) }}"> #}
+                                        <div class="card-header">
+                                            <h3>На рассмотрении</h3>
+                                        </div>
+                                        {# </a> #}
+                                        <div class="card-body">
+                                            {% for contract in contracts %}
+                                                {% if contract.status==1 %}
+                                                    Начало: {{ contract.date_start }}
+                                                    Конец: {{ contract.date_end }}#<br/>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card mb-4 shadow-sm">
+
+                                        <div class="card-header">
+                                            <h3>Действующие</h3>
+                                        </div>
+
+                                        <div class="card-body">
+                                            {% for contract in contracts %}
+                                                {% if contract.status==3 %}
+                                                    <a class="courseShow"
+                                                       href="{{ path('blanc', {'id': contract.id}) }}">
+                                                        Начало: {{ contract.date_start }}
+                                                        Конец: {{ contract.date_end }}#<br/>
+                                                    </a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card mb-4 shadow-sm">
+
+                                        <div class="card-header">
+                                            <h3>Истекшие</h3>
+                                        </div>
+
+                                        <div class="card-body">
+                                            {% for contract in contracts %}
+                                                {% if contract.status==4 %}
+                                                    {# <a class="courseShow" href="{{ path('blanc', {'id': contract.id}) }}"> #}
+                                                    Начало: {{ contract.date_start }}
+                                                    Конец: {{ contract.date_end }}#<br/>
+                                                    {# </a> #}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-            <div class="col-6 mx-auto my-sm-3">
-
-                <div class="card mb-4 shadow-sm">
-
-                    <div class="card-header">
-                        <h3>Действующие</h3>
-                    </div>
-
-                    <div class="card-body">
-                        {% for contract in contracts %}
-                            {% if contract.status==1 %}
-                                <a class="courseShow" href="{{ path('blanc', {'id': contract.id}) }}">
-                                    Начало: {{ contract.date_start }} #
-                                    Конец: {{ contract.date_end }}
-                                </a>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-6 mx-auto my-sm-3">
-
-                <div class="card mb-4 shadow-sm">
-
-                    <div class="card-header">
-                        <h3>Истекшие</h3>
-                    </div>
-
-                    <div class="card-body">
-                        {% for contract in contracts %}
-                            {% if contract.status==3 %}
-                                 {# <a class="courseShow" href="{{ path('blanc', {'id': contract.id}) }}">#}
-                                Начало: {{ contract.date_start }} #
-                                Конец: {{ contract.date_end }}
-                                {#</a>#}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-
-            </div>
-
         </div>
     </div>
 

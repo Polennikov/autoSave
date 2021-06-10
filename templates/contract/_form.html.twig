@@ -2,56 +2,61 @@
 
 <label>Дата начала</label>
 <div class="form-group">
-    {{ form_widget(form.date_start) }}
+    {{ form_widget(form.date_start,{ 'attr': {'class': 'form-control'}  }) }}
     {{ form_errors(form.date_start) }}
 </div>
 
 <label>Дата окончания</label>
 <div class="form-group">
-    {{ form_widget(form.date_end) }}
+    {{ form_widget(form.date_end,{ 'attr': {'class': 'form-control'}  }) }}
     {{ form_errors(form.date_end) }}
 </div>
 
 <label>Цель использования ТС</label>
 <div class="form-group">
-    {{ form_widget(form.purpose) }}
+    {{ form_widget(form.purpose,{ 'attr': {'class': 'form-control'}  }) }}
     {{ form_errors(form.purpose) }}
 </div>
-<label>Номер Диагностической карты</label>
+<label>Номер диагностической карты</label>
 <div class="form-group">
-    {{ form_widget(form.diagnostic_card) }}
+    {{ form_widget(form.diagnostic_card,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите номер карты тех. осмотра'}  }) }}
     {{ form_errors(form.diagnostic_card) }}
 </div>
 <label>Ограничения страховки</label>
 <div class="form-group">
-    {{ form_widget(form.non_limited) }}
+    {{ form_widget(form.non_limited,{ 'attr': {'class': 'form-control'}  }) }}
     {{ form_errors(form.non_limited) }}
+</div>
+<label>Использование прицепа</label>
+<div class="form-group">
+    {{ form_widget(form.trailer,{ 'attr': {'class': 'form-control'}  }) }}
+    {{ form_errors(form.trailer) }}
 </div>
 {% if pos == 1 %}
 <label>СУММА</label>
 <div class="form-group">
-    {{ form_widget(form.amount) }}
+    {{ form_widget(form.amount,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите сумму страховой премии'}  }) }}
     {{ form_errors(form.amount) }}
 </div>
 {% else %}
     <label>Первый водитель</label>
     <div class="form-group">
-        {{ form_widget(form.driver_one) }}
+        {{ form_widget(form.driver_one,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите номер вод. удостоверения'}  }) }}
         {{ form_errors(form.driver_one) }}
     </div>
     <label>Второй водитель</label>
     <div class="form-group">
-        {{ form_widget(form.driver_two) }}
+        {{ form_widget(form.driver_two,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите номер вод. удостоверения'}  }) }}
         {{ form_errors(form.driver_two) }}
     </div>
     <label>Третий водитель</label>
     <div class="form-group">
-        {{ form_widget(form.driver_three) }}
+        {{ form_widget(form.driver_three,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите номер вод. удостоверения'}  }) }}
         {{ form_errors(form.driver_three) }}
     </div>
     <label>Четвертый водитель</label>
     <div class="form-group">
-        {{ form_widget(form.driver_four) }}
+        {{ form_widget(form.driver_four,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите номер вод. удостоверения'}  }) }}
         {{ form_errors(form.driver_four) }}
     </div>
 
@@ -60,35 +65,35 @@
 
 <label>Период начала 1</label>
 <div class="form-group">
-    {{ form_widget(form.date_start_one) }}
+    {{ form_widget(form.date_start_one,{ 'attr': {'class': 'form-control', 'placeholder': 'Выберите дату начала 1-го периода'}  }) }}
     {{ form_errors(form.date_start_one) }}
 </div>
 <label>Период окончания 1</label>
 <div class="form-group">
-    {{ form_widget(form.date_end_one) }}
+    {{ form_widget(form.date_end_one,{ 'attr': {'class': 'form-control'}  }) }}
     {{ form_errors(form.date_end_one) }}
 </div>
 <label>Период начала 2</label>
 <div class="form-group">
-    {{ form_widget(form.date_start_two) }}
+    {{ form_widget(form.date_start_two,{ 'attr': {'class': 'form-control','value':''}  }) }}
     {{ form_errors(form.date_start_two) }}
 </div>
 <label>Период окончания 2</label>
 <div class="form-group">
-    {{ form_widget(form.date_end_two) }}
+    {{ form_widget(form.date_end_two,{ 'attr': {'class': 'form-control','value':''}  }) }}
     {{ form_errors(form.date_end_two) }}
 </div>
-<label>Период окончания 3</label>
+<label>Период начала 3</label>
 <div class="form-group">
-    {{ form_widget(form.date_start_three) }}
+    {{ form_widget(form.date_start_three,{ 'attr': {'class': 'form-control','value':''}  }) }}
     {{ form_errors(form.date_start_three) }}
 </div>
 
-<label>Период окончания 3</label>
+<label> Период окончания 3</label>
 <div class="form-group">
-    {{ form_widget(form.date_end_three) }}
+    {{ form_widget(form.date_end_three,{ 'attr': {'class': 'form-control','value':''}  }) }}
     {{ form_errors(form.date_end_three) }}
 </div>
-{#    {{ form_widget(form) }}#}
+
     <button class="btn btn-primary btn-l">{{ button_label|default('Отправить') }}</button>
 {{ form_end(form) }}

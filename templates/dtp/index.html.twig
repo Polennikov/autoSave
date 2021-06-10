@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auto index{% endblock %}
+
+{% block body %}
+    <!-- Flash message -->
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <!-- END Flash message -->
+    <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('dtp_new') }}">Внести новое ДТП</a>
+    <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('dtp_file_create') }}">Создать файл с ДТП</a>
+{% endblock %}

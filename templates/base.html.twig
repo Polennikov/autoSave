@@ -15,7 +15,10 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+    <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
 
     {# {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -25,16 +28,16 @@
     {% endblock %} #}
 </head>
 <body style="background: #94d6ef">
-<div class="container-fluid">
+<div class="container">
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">
-            StudyOn
+        <a class="navbar-brand ">
+            AutoSave
         </a>
         <div class="auth">
             <a class="course_index btn btn-secondary btn-lg mx-3" href="{{ path('home') }}"> главная</a>
             {% if app.user %}
                 {% if is_granted('ROLE_AGENT') %}
-                    <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('profile') }}"> ДТП</a>
+                    <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('dtp') }}"> ДТП</a>
                 {% else %}
                     <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('profile') }}"> профиль</a>
 

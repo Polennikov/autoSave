@@ -65,9 +65,7 @@ class SecurityController extends AbstractController
         }
 
         $error = null;
-        $form = $this->createForm(RegisterType::class,[
-        'id_user' => $this->getUser(),
-        ]);
+        $form = $this->createForm(RegisterType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +73,6 @@ class SecurityController extends AbstractController
                 // Формируем данные для запроса
                 $data = $serializer->serialize($form->getData(), 'json');
                 // Запрос к сервису для регистрации пользователя
-
                 $response = $Client->register($data);
 
                 if (isset($response['token'])) {

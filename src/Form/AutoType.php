@@ -4,11 +4,13 @@ namespace App\Form;
 
 use App\Entity\Auto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AutoType extends AbstractType
 {
@@ -16,7 +18,8 @@ class AutoType extends AbstractType
     {
         $builder
             ->add('vin', TextType::class, [
-                'label' => 'Vin номер',
+                'label'       => 'Vin номер',
+                'required' => true,
                 'constraints' => [
                     new Length([
                         'max' => 150,
@@ -24,7 +27,8 @@ class AutoType extends AbstractType
                 ],
             ])
             ->add('marka', TextType::class, [
-                'label' => 'Марка',
+                'label'       => 'Марка',
+                'required' => true,
                 'constraints' => [
                     new Length([
                         'max' => 100,
@@ -32,7 +36,8 @@ class AutoType extends AbstractType
                 ],
             ])
             ->add('model', TextType::class, [
-                'label' => 'Модель',
+                'label'       => 'Модель',
+                'required' => true,
                 'constraints' => [
                     new Length([
                         'max' => 100,
@@ -40,7 +45,8 @@ class AutoType extends AbstractType
                 ],
             ])
             ->add('number', TextType::class, [
-                'label' => 'Гос номер',
+                'label'       => 'Гос номер',
+                'required' => true,
                 'constraints' => [
                     new Length([
                         'max' => 10,
@@ -48,32 +54,50 @@ class AutoType extends AbstractType
                 ],
             ])
             ->add('color', TextType::class, [
-                'label' => 'Цвет',
+                'label'       => 'Цвет',
+                'required' => true,
                 'constraints' => [
                     new Length([
                         'max' => 100,
                     ]),
                 ],
             ])
-            ->add('year', IntegerType::class, [
-                'label' => 'Год выпуска',
-
-            ])
-            ->add('power', IntegerType::class, [
-                'label' => 'Мощность',
-            ])
-            ->add('mileage', IntegerType::class, [
-                'label' => 'Пробег (км)',
-            ])
-            ->add('category', TextType::class, [
-                'label' => 'Категория',
+            ->add('number_sts', TextType::class, [
+                'label'       => 'Номер СТС',
+                'required' => true,
                 'constraints' => [
                     new Length([
-                        'max' => 5,
+                        'max' => 100,
                     ]),
                 ],
             ])
-        ;
+            ->add('year', NumberType::class, [
+                'label' => 'Год выпуска',
+                'required' => true,
+                'invalid_message' => 'Неверный формат поля.',
+
+            ])
+            ->add('power', NumberType::class, [
+                'label' => 'Мощность',
+                'required' => true,
+                'invalid_message' => 'Неверный формат поля.',
+            ])
+            ->add('mileage', NumberType::class, [
+                'label' => 'Пробег (км)',
+                'required' => true,
+                'invalid_message' => 'Неверный формат поля.',
+            ])
+            ->add('category', ChoiceType::class, [
+                'label'    => 'Категория ТС',
+                'required' => true,
+                'choices'  => array(
+                    'A' => 'A',
+                    'B' => 'B',
+                    'C' => 'C',
+                    'D' => 'D',
+                    'E' => 'E',
+                ),
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

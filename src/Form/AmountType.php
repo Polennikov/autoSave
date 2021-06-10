@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-class PayType extends AbstractType
+class AmountType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

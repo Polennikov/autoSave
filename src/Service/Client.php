@@ -48,7 +48,7 @@ class Client
      */
     public function register(string $request): array
     {
-
+//var_dump($request);
         // Формирование запроса в сервис Billing
         $curl = curl_init($this->baseUri.'/api/v1/register');
         curl_setopt($curl, CURLOPT_POST, 1);
@@ -139,6 +139,7 @@ class Client
      */
     public function newAuto(User $user, string $request): array
     {
+        //var_dump($request);
         // Формирование запроса в сервис Billing
         $curl = curl_init($this->baseUri.'/api/v1/auto/new');
         curl_setopt($curl, CURLOPT_POST, 1);
@@ -150,7 +151,7 @@ class Client
             'Content-Length: '.strlen($request),
         ]);
         $response = curl_exec($curl);
-
+  //var_dump($response);
         // Ошибка биллинга
         if (!$response) {
             throw new ClientUnavailableException('Сервис временно недоступен. Попробуйте зарегистироваться позднее.');
@@ -257,7 +258,7 @@ class Client
      */
     public function newContract(User $user, string $request): array
     {
-        var_dump($request);
+        //var_dump($request);
         //exit();
         // Формирование запроса в сервис Billing
         $curl = curl_init($this->baseUri.'/api/v1/contract/new');
@@ -289,7 +290,7 @@ class Client
      */
     public function editContract(User $user, string $id, string $request): array
     {
-        var_dump($request);
+        //var_dump($request);
         //exit();
         // Формирование запроса в сервис Billing
         $curl = curl_init($this->baseUri.'/api/v1/contract/'.$id.'/edit');
@@ -403,10 +404,10 @@ class Client
     /**
      * @throws ClientUnavailableException
      */
-    public function getUsersContract(User $user): array
+    public function getUsersContract(string $id, User $user): array
     {
         // Запрос в сервис биллинг, получение данных
-        $curl = curl_init($this->baseUri.'/api/v1/contract/agent');
+        $curl = curl_init($this->baseUri.'/api/v1/relation/'.$id);
         curl_setopt($curl, CURLOPT_HTTPGET, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
@@ -428,17 +429,103 @@ class Client
         return $result;
     }
 
+    /**
+     * @throws ClientUnavailableException
+     */
+    public function newDtp(User $user, string $request): array
+    {
+        // Запрос в сервис биллинг, получение данных
+        $curl = curl_init($this->baseUri.'/api/v1/dtp/new');
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer '.$user->getApiToken(),
+            'Content-Length: '.strlen($request),
+        ]);
+        $response = curl_exec($curl);
 
+        // Ошибка биллинга
+        if (!$response) {
+            throw new ClientUnavailableException('Сервис временно недоступен. Попробуйте зарегистироваться позднее.');
+        }
+
+        curl_close($curl);
+
+        // Ответ от сервиса
+        $result = json_decode($response, true);
+
+        return $result;
+    }
 
     /**
      * @throws ClientUnavailableException
      */
-    public function getIndexKt(User $user): array
+    public function predictKNN(User $user, string $request): array
+    {
+        // Запрос в сервис биллинг, получение данных
+        $curl = curl_init($this->baseUri.'/api/v1/predict/create');
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer '.$user->getApiToken(),
+            'Content-Length: '.strlen($request),
+        ]);
+        $response = curl_exec($curl);
+
+        // Ошибка биллинга
+        if (!$response) {
+            throw new ClientUnavailableException('Сервис временно недоступен. Попробуйте зарегистироваться позднее.');
+        }
+
+        curl_close($curl);
+
+        // Ответ от сервиса
+        $result = json_decode($response, true);
+
+        return $result;
+    }
+
+    /**
+     * @throws ClientUnavailableException
+     */
+    public function createFileDtp(User $user): array
+    {
+        // Запрос в сервис биллинг, получение данных
+        $curl = curl_init($this->baseUri.'/api/v1/file/create');
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer '.$user->getApiToken(),
+        ]);
+        $response = curl_exec($curl);
+
+        // Ошибка биллинга
+        if (!$response) {
+            throw new ClientUnavailableException('Сервис временно недоступен. Попробуйте зарегистироваться позднее.');
+        }
+
+        curl_close($curl);
+
+        // Ответ от сервиса
+        $result = json_decode($response, true);
+
+        return $result;
+    }
+
+    /**
+     * @throws ClientUnavailableException
+     */
+    public function getAmount(User $user,string $id): array
     {
 
         // Запрос в сервис биллинг, получение данных
-        $curl = curl_init($this->baseUri.'/api/v1/books/kt');
-        curl_setopt($curl, CURLOPT_POST, 0);
+        $curl = curl_init($this->baseUri.'/api/v1/amount/'.$id);
+        curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',

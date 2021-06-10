@@ -24,7 +24,10 @@ class ProfileController extends AbstractController
         try {
             $result = $Client->getCurrentUser($this->getUser());
             $contracts=$Client->getContractAll($this->getUser());
-             //var_dump($result);
+if(isset($contracts['code'])){
+    $contracts='null';
+}
+
         } catch (ClientUnavailableException $e) {
             throw new \Exception($e->getMessage());
         }

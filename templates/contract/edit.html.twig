@@ -3,24 +3,25 @@
 {% block title %}Edit Contract{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="card mb-4 shadow-sm my-sm-3">
-            <h3 class="mx-auto my-sm-3">Добавление договора</h3>
-            <div class="card-header">
+    <div class="card mb-4 shadow-sm">
+        <h3 class="mx-auto my-sm-3">Изменение договора</h3>
+        <div class="col-6 mx-auto my-sm-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    {% if predict.prediction == 1 %}
+                        Модель предсказания показала что есть риск совершения ДТП данным водителем с точностью {{ predict.score }}
+                    {% else %}
+                        Модель предсказания показала что нет риска совершения ДТП данным водителем с точностью {{ predict.score }}
+                    {% endif %}
+
+                </div>
+                <div class="card-header">
+                    {{ include('contract/_form.html.twig', {'button_label': 'Отправить'}) }}
+                </div>
 
 
             </div>
-            <div class="card-body">
-                {{ include('contract/_form.html.twig', {'button_label': 'Отправить'}) }}
-            </div>
-
-
         </div>
     </div>
 
-
-
-
-
-   {# {{ include('contract/_delete_form.html.twig') }}#}
 {% endblock %}

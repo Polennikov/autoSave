@@ -1,0 +1,41 @@
+{{ form_start(form) }}
+<label>Дата ДТП</label>
+<div class="form-group">
+    {{ form_widget(form.date_dtp, { 'attr': {'class': 'form-control', 'placeholder': 'Введите дату ДТП'}  }) }}
+    {{ form_errors(form.date_dtp) }}
+</div>
+
+<label>Описание</label>
+<div class="form-group">
+    {{ form_widget(form.description, { 'attr': {'class': 'form-control', 'placeholder': 'Введите Описание'}  }) }}
+    {{ form_errors(form.description) }}
+</div>
+
+<label>Адрес ДТП</label>
+<div class="form-group">
+    {{ form_widget(form.adress_dtp,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите адрес места происшествия'}  }) }}
+    {{ form_errors(form.adress_dtp) }}
+</div>
+<label>Степень тяжести</label>
+<div class="form-group">
+    {{ form_widget(form.degree, { 'attr': {'class': 'form-control', 'placeholder': 'Выберите степени тяжести ДТП'}  }) }}
+    {{ form_errors(form.degree) }}
+</div>
+<label>Виновность в ДТП</label>
+<div class="form-group">
+    {{ form_widget(form.initiator, { 'attr': {'class': 'form-control', 'placeholder': 'Выберите причастность к ДТП'}  }) }}
+    {{ form_errors(form.initiator) }}
+</div>
+<label>Водитель</label>
+<div class="form-group">
+    {{ form_widget(form.users,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите номер водительского уд.'}  }) }}
+    {{ form_errors(form.users) }}
+</div>
+<label>Автомобиль</label>
+<div class="form-group">
+    {{ form_widget(form.autos,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите VIN номер автомобиля'}  }) }}
+    {{ form_errors(form.autos) }}
+</div>
+
+<button class="btn btn-primary btn-lg">{{ button_label|default('Добавить') }}</button>
+{{ form_end(form) }}

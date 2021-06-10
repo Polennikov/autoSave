@@ -69,34 +69,28 @@ class ContractType extends AbstractType
                     'label'    => 'Номер Диагностической карты',
                     'required' => true,
                 ])
-            ->add('non_limited', CheckboxType::class,
+            ->add('non_limited', ChoiceType::class,
                 [
                     'label'    => 'Ограничения страховки',
-                    'required' => false,
-                ])
-            /*->add('status', NumberType::class,
-                [
-                    'label' => 'Статус',
-                    'required' => true,
-                ])*/
-            /*->add('autoVin', ChoiceType::class,
-                [
-                    'label' => 'Пол',
                     'required' => true,
                     'choices'  => array(
-                        'Мужской' => true,
-                        'Женский' => false,
+                        'Ограничения по числу водителей'       => false,
+                        'Без ограничения по числу водителей' => true,
                     ),
-                ])*/
-            /* ->add('agent_id', NumberType::class,
-                 [
-                     'label' => 'Значение КБМ',
-                     'required' => true,
-                 ])*/
+                ])
+            ->add('trailer', ChoiceType::class,
+                [
+                    'label'    => 'Использование прицепа',
+                    'required' => true,
+                    'choices'  => array(
+                        'Используется'       => true,
+                        'Не используется' => false,
+                    ),
+                ])
             ->add('driver_one', TextType::class,
                 [
                     'label'    => 'Первый водитель',
-                    'required' => true,
+                    'required' => false,
                 ])
             ->add('driver_two', TextType::class,
                 [
@@ -141,12 +135,6 @@ class ContractType extends AbstractType
                         new NotNull(['message' => 'Pick a date!']),
                     ],
                 ])
-
-           /* ->add('period_two', CheckboxType::class,
-                [
-                    'label'    => 'Период 2',
-                    'required' => false,
-                ])*/
             ->add('date_start_two', DateType::class,
                 [
                     'required'   => false,
@@ -171,13 +159,6 @@ class ContractType extends AbstractType
                     'widget'     => 'single_text',
 
                 ])
-
-
-           /* ->add('period_three', CheckboxType::class,
-                [
-                    'label'    => 'Период 3',
-                    'required' => false,
-                ])*/
             ->add('date_start_three', DateType::class,
                 [
                     'label'       => 'Период начала 3',

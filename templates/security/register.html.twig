@@ -22,48 +22,64 @@
             </ul>
         {% endif %}
         <div class="card mb-4 shadow-sm">
-            <h3 class="mx-auto my-sm-3">Автомобиль</h3>
-                <div class="col-6 mx-auto my-sm-3">
-                    <div class="card mb-4 shadow-sm">
+            <h3 class="mx-auto my-sm-3">Регистрация</h3>
+            <div class="col-6 mx-auto my-sm-3">
+                <div class="card mb-4 shadow-sm">
 
-                            <div class="card-header">
-                                {{ form_start(form) }}
-                                <h4>{{ form_label(form.name) }}</h4>
-                                <div>{{ form_widget(form.name) }}</div>
-                                <h4>{{ form_label(form.surname) }}</h4>
-                                <div>{{ form_widget(form.surname) }}</div>
-                                <h4>{{ form_label(form.mid_name) }}</h4>
-                                <div>{{ form_widget(form.mid_name) }}</div>
-                                <h4>{{ form_label(form.number_driver) }}</h4>
-                                <div>{{ form_widget(form.number_driver) }}</div>
-                                <h4>{{ form_label(form.date_driver) }}</h4>
-                                <div>{{ form_widget(form.date_driver) }}</div>
-                                <h4>{{ form_label(form.adress_driver) }}</h4>
-                                <div>{{ form_widget(form.adress_driver) }}</div>
-                                <h4>{{ form_label(form.exp_driver) }}</h4>
-                                <div>{{ form_widget(form.exp_driver) }}</div>
-                                <h4>{{ form_label(form.gender_driver) }}</h4>
-                                <div>{{ form_widget(form.gender_driver) }}</div>
-                                <h4>{{ form_label(form._kbm) }}</h4>
-                                <div>{{ form_widget(form._kbm) }}</div>
-                                <h4>{{ form_label(form.email) }}</h4>
-                                <div>{{ form_widget(form.email) }}</div>
-                                <h4>{{ form_label(form.password.first) }}</h4>
-                                <div>{{ form_widget(form.password.first) }}</div>
-                                <h4>{{ form_label(form.password.second) }}</h4>
-                                <div>{{ form_widget(form.password.second) }}</div>
-                                <button type="submit" class="btn btn-lg btn-primary ">Регистрация</button>
-                                {{ form_end(form) }}
+                    <div class="card-header">
+                        {{ form_start(form) }}
+                        <h4>{{ form_label(form.name) }}</h4>
+                        <div>{{ form_widget(form.name,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите имя', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.surname) }}</h4>
+                        <div>{{ form_widget(form.surname,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите фамилию', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.midName) }}</h4>
+                        <div>{{ form_widget(form.midName,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите отчество', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.numberDriver) }}</h4>
+                        <div>{{ form_widget(form.numberDriver,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите фамилию', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.dateDriver) }}</h4>
+                        <div class="form-group">
+                            <div class="input-group" id="datetimepicker1">
+                                <div>{{ form_widget(form.dateDriver,{ 'attr': {'class': 'form-control'}  }) }}</div>
                             </div>
-
-
+                        </div>
+                        <h4>{{ form_label(form.adressDriver) }}</h4>
+                        <div>{{ form_widget(form.adressDriver,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите адрес ', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.expDriver) }}</h4>
+                        <div>{{ form_widget(form.expDriver,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите кол-во лет стажа', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.genderDriver) }}</h4>
+                        <div>{{ form_widget(form.genderDriver,{ 'attr': {'class': 'form-control', 'placeholder': 'Выберите пол', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.KBM) }}</h4>
+                        <div>{{ form_widget(form.KBM,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите КВМ', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.email) }}</h4>
+                        <div>{{ form_widget(form.email,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите email', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.password.first) }}</h4>
+                        <div>{{ form_widget(form.password.first,{ 'attr': {'class': 'form-control', 'placeholder': 'Введите пароль', 'value':''}  }) }}</div>
+                        <h4>{{ form_label(form.password.second) }}</h4>
+                        <div>{{ form_widget(form.password.second,{ 'attr': {'class': 'form-control', 'placeholder': 'Повторите пароль', 'value':''}  }) }}</div>
+                        <br/>
+                        <div class="col-3 mx-auto my-sm-auto">
+                            <button type="submit" class="btn btn-lg btn-primary ">Регистрация</button>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
+
+
                 </div>
-
-        </div>
+            </div>
 
         </div>
 
     </div>
+
     </div>
+    </div>
+
+    <!-- Инициализация виджета "Bootstrap datetimepicker" -->
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                locale: 'ru'
+            });
+        });
+    </script>
 {% endblock %}

@@ -16,7 +16,7 @@
                             Cтраховая премия: {{ contract.amount }} #
                         </div>
 
-                    <div class="card-body"> {% if contract.status==2 %}
+                    <div class="card-body"> {% if contract.status==1 %}
                             Начало: {{ contract.date_start }} #
                             Конец: {{ contract.date_end }}{% endif %}
                     </div>
@@ -29,6 +29,7 @@
     {% else %}
     {% if is_granted('ROLE_USER') %}
         <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}"> Добавить автомобиль</a>
+
 
 {% endif %}
     {% endif %}

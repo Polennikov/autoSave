@@ -30,32 +30,34 @@ class RegisterType extends AbstractType
                     'label' => 'Фамилия',
                     'required' => true,
                 ])
-            ->add('number_driver', TextType::class,
+            ->add('numberDriver', TextType::class,
                 [
                     'label' => 'Номер водительского',
                     'required' => true,
                 ])
-            ->add('mid_name', TextType::class,
+            ->add('midName', TextType::class,
                 [
                     'label' => 'Отчество',
                     'required' => true,
                 ])
-            ->add('date_driver', DateType::class,
+            ->add('dateDriver', DateType::class,
                 [
                     'label' => 'Дата Рождения',
                     'required' => true,
+                    'widget' => 'single_text',
                 ])
-            ->add('adress_driver', TextType::class,
+            ->add('adressDriver', TextType::class,
                 [
                     'label' => 'Адрес проживания',
                     'required' => true,
                 ])
-            ->add('exp_driver', NumberType::class,
+            ->add('expDriver', NumberType::class,
                 [
                     'label' => 'Стаж вождения',
                     'required' => true,
+                    'invalid_message' => 'Неверный формат поля.',
                 ])
-            ->add('gender_driver', ChoiceType::class,
+            ->add('genderDriver', ChoiceType::class,
                 [
                     'label' => 'Пол',
                     'required' => true,
@@ -64,10 +66,11 @@ class RegisterType extends AbstractType
                         'Женский' => false,
                     ),
                 ])
-            ->add('_kbm', NumberType::class,
+            ->add('KBM', NumberType::class,
                 [
                     'label' => 'Значение КБМ',
                     'required' => true,
+                    'invalid_message' => 'Неверный формат поля.',
                 ])
             ->add('email', EmailType::class,
                 [

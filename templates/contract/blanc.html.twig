@@ -20,25 +20,111 @@
         </div>
 </div>
 
-
-
-
     <script type="text/javascript">
         var canv = document.getElementById("img"),
             c = canv.getContext("2d");
 
-        var img = new Image();
 
-        img.src = '/Blank/blanc-osago.jpg';
+
+        var img = new Image();
+        var imgCheckFalse= new Image();
+        var imgCheckTrue = new Image();
+
+        img.src = '/Blank/blank.jpg';
+        imgCheckFalse.src = '/Blank/checkFalse.png';
+        imgCheckTrue.src = '/Blank/checkTrue.png';
 
         img.onload = function () {
             canv.width = img.width;
             canv.height = img.height;
             c.drawImage(img, 0, 0);
+           /* c.drawImage(img1,345,367),*/
             c.font = "14px Times New Roman";
-            var text = "тут";
-            c.fillText("{{ contract.amount }}", canv.width - 550, canv.height - 205);
-            c.fillText("{{ contract.purpose }}", canv.width / 5 - text.length / 2 * 15, canv.height / 2 - 5);
+            var data = "{{ contract.date_start }}";
+            var dataFull = data[8]+' '+data[9]+'       '+data[5]+' '+data[6]+'            '+data[2]+' '+data[3];
+            c.fillText(dataFull, canv.width-150, canv.height-830);
+
+            data = "{{ contract.date_end }}";
+            dataFull=data[8]+' '+data[9]+'       '+data[5]+' '+data[6]+'            '+data[2]+' '+data[3];
+            c.fillText(dataFull, canv.width-150, canv.height-805);
+
+            surname = "{{ user.surname }}";
+            name = "{{ user.name }}";
+            midname = "{{ user.midName }}";
+            dataFull=surname+'   '+name+'   '+midname;
+            c.fillText(dataFull, canv.width-630, canv.height-680);
+
+            surname = "{{ user.surname }}";
+            name = "{{ user.name }}";
+            midname = "{{ user.midName }}";
+            dataFull=surname+'   '+name+'   '+midname;
+            c.fillText(dataFull, canv.width-630, canv.height-620);
+
+            marka = "{{ auto.marka }}";
+            model = "{{ auto.model }}";
+            dataFull=marka+'   '+model;
+            c.fillText(dataFull, canv.width-620, canv.height-550);
+
+            vin = "{{ contract.auto_vin }}";
+            var vinRes='';
+            for (let i = 0; i < vin.length; i++) { // выведет 0, затем 1, затем 2
+                vinRes+=vin[i]+'   ';
+            }
+            dataFull=vinRes;
+            c.fillText(dataFull, canv.width-442, canv.height-545);
+
+            numberAuto = "{{ auto.number }}";
+            var NumberAuto='';
+            for (let i = 0; i < numberAuto.length; i++) { // выведет 0, затем 1, затем 2
+                if(i==4){
+                    NumberAuto+=+'   ';
+                }
+                NumberAuto+=numberAuto[i];
+            }
+            dataFull=NumberAuto;
+            c.fillText(dataFull, canv.width-400, canv.height-545);
+
+
+            number = "{{ auto.number }}";
+            dataFull=number;
+            c.fillText(dataFull, canv.width-130, canv.height-545);
+
+            c.fillText("{{ contract.amount }}", canv.width - 530, canv.height - 195);
+
+            c.fillText("{{ contract.purpose }}", canv.width-650, canv.height -155);
+
+            nonLim = "{{ contract.non_limited }}";
+            dataFull=nonLim;
+            if(dataFull==0){
+                c.drawImage(imgCheckFalse,520,545);
+            }
+            else {
+                c.drawImage(imgCheckTrue,520,545);
+            }
+
+            users1 = "{{ users1 }}";
+            dataFull=users1;
+            c.fillText(dataFull, canv.width-650, canv.height-370);
+
+            users2 = "{{ users2 }}";
+            dataFull=users2;
+            if(users2.length>0) {
+                c.fillText(dataFull, canv.width - 650, canv.height - 355);
+            }
+            users3 = "{{ users3 }}";
+            dataFull=users3;
+            //document.write(users3);
+            if(users3!='undefined') {
+                c.fillText(dataFull, canv.width - 650, canv.height - 335);
+            }
+            users4 = "{{ users4 }}";
+            dataFull=users4;
+            if(users4.length>0) {
+                c.fillText(dataFull, canv.width - 650, canv.height - 315);
+            }
+
+
+
         };
 
         function get() {

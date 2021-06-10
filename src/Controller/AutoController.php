@@ -47,7 +47,9 @@ class AutoController extends AbstractController
                     'vin'      => $form->get('vin')->getNormData(),
                     'marka'    => $form->get('marka')->getNormData(),
                     'model'    => $form->get('model')->getNormData(),
+                    'mileage'    => $form->get('mileage')->getNormData(),
                     'number'   => $form->get('number')->getNormData(),
+                    'number_sts'   => $form->get('number_sts')->getNormData(),
                     'color'    => $form->get('color')->getNormData(),
                     'year'     => $form->get('year')->getNormData(),
                     'power'    => $form->get('power')->getNormData(),
@@ -64,7 +66,7 @@ class AutoController extends AbstractController
                 ]);
             }
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('profile');
         }
 
         return $this->render('auto/new.html.twig', [
@@ -111,6 +113,7 @@ class AutoController extends AbstractController
      */
     public function edit(Request $request, Client $Client, SerializerInterface $serializer): Response
     {
+
         $vin  = $request->get('vin');
         $auto = $Client->getAuto($this->getUser(), $vin);
 
