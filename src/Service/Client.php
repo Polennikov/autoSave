@@ -232,7 +232,7 @@ class Client
 
         // Запрос в сервис биллинг, получение данных
         $curl = curl_init($this->baseUri.'/api/v1/auto/'.$vin.'/delete');
-        curl_setopt($curl, CURLOPT_POST, 0);
+        curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
@@ -546,4 +546,32 @@ class Client
         return $result;
     }
 
+    /**
+     * @throws ClientUnavailableException
+     */
+    public function delContract(User $user, string $id): array
+    {
+
+        // Запрос в сервис биллинг, получение данных
+        $curl = curl_init($this->baseUri.'/api/v1/contract/'.$id.'/delete');
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Bearer '.$user->getApiToken(),
+        ]);
+        $response = curl_exec($curl);
+
+        // Ошибка биллинга
+        if (!$response) {
+            throw new ClientUnavailableException('Сервис временно недоступен. Попробуйте зарегистироваться позднее.');
+        }
+
+        curl_close($curl);
+
+        // Ответ от сервиса
+        $result = json_decode($response, true);
+
+        return $result;
+    }
 }

@@ -24,8 +24,9 @@
                 </div>
             </div>
 
-            <a href="{{ path('auto_edit', {'vin': auto.vin}) }}" class="btn btn-primary btn-lg mr-3">Изменить</a>
+
             {% if contract == true %}
+                <a href="{{ path('auto_edit', {'vin': auto.vin}) }}" class="btn btn-primary btn-lg mr-3">Изменить</a>
                 <a href="{{ path('contract_new', {'vin': auto.vin}) }}" class="btn btn-primary btn-lg mr-3">Оформить
                     полис</a>
             {% endif %}

@@ -78,6 +78,7 @@ class ContractController extends AbstractController
                 'trailer'         => $form->get('trailer')->getNormData(),
                 'auto_vin'        => $vin,
                 'agent_id'        => " ",
+                'marks'=>" ",
 
                 'driver_one'   => $form->get('driver_one')->getNormData(),
                 'driver_two'   => $form->get('driver_two')->getNormData(),
@@ -145,7 +146,7 @@ class ContractController extends AbstractController
 
             //var_dump($contract['id']);
 //return $this->redirectToRoute('contract_show',['id'=>$contract['id']]);
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('profile');
 
         }
 
@@ -268,7 +269,6 @@ class ContractController extends AbstractController
             'age'    => $age,
             'gender' => $gender,
             'exp'    => $exp,
-            'region' => $contracts['adress_driver'],
             'marka'  => $auto['marka'],
             'year'   => $auto['year'],
             'engine' => $auto['power'],
@@ -277,6 +277,11 @@ class ContractController extends AbstractController
         ];
 
         $predict = $Client->predictKNN($this->getUser(), $serializer->serialize($dataRequest, 'json'));
+        if($predict['prediction']==1){
+            $marks='Данный страховой договор составлен с учетом риска аварийности';
+        }else{
+            $marks='Данный страховой договор составлен без учета риска аварийности';
+        }
         //var_dump($predict);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('date_start_two')->getNormData() == null) {
@@ -311,7 +316,7 @@ class ContractController extends AbstractController
                 /*'driver_two'   => $contract['driver_two'],
                 'driver_three' => $contract['driver_three'],
                 'driver_four'  => $contract['driver_four'],*/
-
+                'marks'=>$marks,
                 'date_start_one' => $form->get('date_start_one')->getNormData(),
                 'date_end_one'   => $form->get('date_end_one')->getNormData(),
 
@@ -322,8 +327,6 @@ class ContractController extends AbstractController
                 'date_end_three'   => $dateThreeEnd,
             ];
 
-            // var_dump($serializer->serialize($dataRequest, 'json'));
-            // exit();
             $contract = $Client->editContract($this->getUser(), $contract['id'],
                 $serializer->serialize($dataRequest, 'json'));
 
@@ -342,15 +345,23 @@ class ContractController extends AbstractController
     /**
      * @Route("/{id}", name="contract_delete", methods={"POST"})
      */
-    public function delete(Request $request, Contract $contract): Response
+    public function delete(Request $request,  Client $Client): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$contract->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($contract);
-            $entityManager->flush();
-        }
+        $id = $request->get('id');
+        if ($this->isCsrfTokenValid('delete'.$id, $request->request->get('_token'))) {
+            try {
+                 $Client->delContract($this->getUser(), $id);
+            } catch (ClientUnavailableException $e) {
+                // flash message
+                $this->addFlash('message', 'Возникла ошибка!');
 
-        return $this->redirectToRoute('contract_index');
+
+                return $this->redirectToRoute('profile');
+            }
+            return $this->redirectToRoute('profile');
+
+
+        }
     }
 
     /**
@@ -363,8 +374,7 @@ class ContractController extends AbstractController
         $user     = $Client->getCurrentUser($this->getUser());
         $auto     = $Client->getAuto($this->getUser(), $contract['auto_vin']);
         $users    = $Client->getUsersContract($contract['id'], $this->getUser());
-        //$users1="null";
-        //var_dump($users);
+
         $users2 = null;
         $users3 = null;
         $users4 = null;
@@ -384,14 +394,13 @@ class ContractController extends AbstractController
             }
             $tmp++;
         }
-        var_dump($users2);
+        //var_dump($users2);
         if (isset($auto['code']) && $auto['code'] == 404) {
             return $this->render('contract/blanc.html.twig', [
                 'contract' => null,
             ]);
         }
 
-//var_dump($contract);
         return $this->render('contract/blanc.html.twig', [
             'user'     => $user,
             'users1'   => $users1,

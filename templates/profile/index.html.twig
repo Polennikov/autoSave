@@ -68,7 +68,7 @@
                                 {{ user.name }}
                                 {{ user.midName }}</h4>
                             <small class="label label-warning">Данные</small>
-                            <h4>Номер водительского:</h4>
+                            <h4>Номер водительского удостоверения:</h4>
                             <h5>{{ user.numberDriver }}</h5>
                             <h4>Адрес:</h4>
                             <h5>{{ user.adressDriver }}</h5>
@@ -86,12 +86,15 @@
                         <ul id="myTab" class="nav nav-pills">
                             <li class="active"><a href="#auto" data-toggle="tab">Автомобили</a></li>
                             {% if contracts!='null' %}
-                                <li class=""><a href="#contract" data-toggle="tab">Договора</a></li>
+                                <li class=""><a href="#contract" data-toggle="tab">Договоры</a></li>
                             {% endif %}
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <hr>
                             <div class="tab-pane fade active in" id="auto">
+                                <div class="card-body">
+                                    <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}"> Добавить автомобиль</a>
+                                </div>
 
                                 {% for auto in autos %}
                                     <div class="card mb-4 shadow-sm">
@@ -120,10 +123,12 @@
                                         <div class="card-body">
                                             {% for contract in contracts %}
                                                 {% if contract.status==2 %}
+                                                    Цена:  {{ contract.amount }}#
                                                     Начало: {{ contract.date_start }}
                                                     Конец: {{ contract.date_end }}#
                                                 <a class="profile btn btn-secondary" href="{{ path('contract_pay', {'id': contract.id}) }}">Оплатить
                                             </a>
+                                                    {{ include('contract/_delete_form.html.twig') }}
                                                     <br/>
                                                 {% endif %}
                                             {% endfor %}
@@ -140,7 +145,7 @@
                                             {% for contract in contracts %}
                                                 {% if contract.status==1 %}
                                                     Начало: {{ contract.date_start }}
-                                                    Конец: {{ contract.date_end }}#<br/>
+                                                    Конец: {{ contract.date_end }}# {{ include('contract/_delete_form.html.twig') }}<br/>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>

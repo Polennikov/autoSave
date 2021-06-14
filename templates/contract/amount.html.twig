@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Contract{% endblock %}
+{% block title %}AmountContract{% endblock %}
 
 {% block body %}
     <div class="card mb-4 shadow-sm">
@@ -9,7 +9,7 @@
             <div class="card mb-4 shadow-sm">
                 <div class="card-header">
                     Расчетная стоимость страховой премии равна: ( {{ amount }} ) рублей
-
+                    <h3>Внимание!</h3> <h5>Страховая стоимость может измениться после рассмотрения заявки!</h5>
                 </div>
                 <div class="card-header">
                     {{ include('contract/form_pay.html.twig') }}

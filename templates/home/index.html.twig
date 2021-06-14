@@ -1,37 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}MainPage{% endblock %}
 
 {% block body %}
     {% if is_granted('ROLE_AGENT') %}
 
-    <div class="card mb-4 shadow-sm">
-        <h3 class="mx-auto my-sm-3"> Новые договора</h3>
-        {% for contract in contracts %}
-            <div class="col-6 mx-auto my-sm-3">
+        <div class="card mb-4 shadow-sm">
+            <h3 class="mx-auto my-sm-3"> Новые договора</h3>
+            {% for contract in contracts %}
+                <div class="col-6 mx-auto my-sm-3">
 
-                <div class="card mb-4 shadow-sm">
-                    <a class="" href="{{ path('contract_edit', {'id': contract.id}) }}">
-                        <div class="card-header">
-                            Cтраховая премия: {{ contract.amount }} #
-                        </div>
+                    <div class="card mb-4 shadow-sm">
+                        <a class="" href="{{ path('contract_edit', {'id': contract.id}) }}">
+                            <div class="card-header">
+                                Cтраховая премия: {{ contract.amount }} #
+                            </div>
 
-                    <div class="card-body"> {% if contract.status==1 %}
-                            Начало: {{ contract.date_start }} #
-                            Конец: {{ contract.date_end }}{% endif %}
+                            <div class="card-body"> {% if contract.status==1 %}
+                                    Начало: {{ contract.date_start }} #
+                                    Конец: {{ contract.date_end }}{% endif %}
+                            </div>
+                        </a>
                     </div>
-                    </a>
+
                 </div>
-
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
     {% else %}
-    {% if is_granted('ROLE_USER') %}
-        <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}"> Добавить автомобиль</a>
+        {% if is_granted('ROLE_USER') %}
+            <div style="display: flex; justify-content: center; padding: 10px">
+                <a class="profile btn btn-secondary btn-lg mx-3" href="{{ path('auto_new') }}"> Добавить автомобиль</a>
+            </div>
+        {% endif %}
+        <div class="container" style=" background: #5eb5e0;  padding: 100px;border-radius: 20px; ">
+            <div class="row centered" style="display: flex; justify-content: center">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div style="margin-top: 50px">
+                        <h1>Система онлайн автострахования</h1>
+                        <h3>Уверенность в любой ситуации</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="display: flex; justify-content: space-between; margin-top: 170px;">
 
+            <div class="col-lg-4" style="    padding: 100px; /* Поля вокруг текста */
+    border-radius: 20px; background: #5eb5e0">
+                <h3 class="m-auto">Выгодные условия страхования за счет внедренных в систему алгоритмов машинного
+                    обучения</h3>
+            </div>
+            <div class="col-lg-4 " style="    padding: 100px; /* Поля вокруг текста */
+    border-radius: 20px; background: #5eb5e0">
+                <h3 class="m-auto">Автоматическое заполнение бланка полиса ОСАГО </h3>
+            </div>
+            <div class="col-lg-4 " style="    padding: 100px; /* Поля вокруг текста */
+    border-radius: 20px; background: #5eb5e0">
+                <h3 class="m-auto">Удобный и интуитивно понятный интерфейс приложения</h3>
+            </div>
 
-{% endif %}
+        </div>
+
     {% endif %}
 
 {% endblock %}
