@@ -23,8 +23,8 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-             return $this->redirectToRoute('target_path');
-         }
+            return $this->redirectToRoute('target_path');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -39,6 +39,7 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
@@ -47,9 +48,9 @@ class SecurityController extends AbstractController
      *
      * @param   Request                                                      $request
      * @param   SerializerInterface                                          $serializer
-     * @param   Client                                                $Client
+     * @param   Client                                                       $Client
      * @param   \Symfony\Component\Security\Guard\GuardAuthenticatorHandler  $guardAuthenticatorHandler
-     * @param   \App\Security\AppCustomAuthAuthenticator                              $Authenticator
+     * @param   \App\Security\AppCustomAuthAuthenticator                     $Authenticator
      *
      * @return Response
      */
@@ -65,7 +66,7 @@ class SecurityController extends AbstractController
         }
 
         $error = null;
-        $form = $this->createForm(RegisterType::class);
+        $form  = $this->createForm(RegisterType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -101,7 +102,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/register.html.twig', [
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
             'error' => $error,
         ]);
     }

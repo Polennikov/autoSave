@@ -25,10 +25,7 @@ class HomeController extends AbstractController
                 'controller_name' => 'HomeController',
             ]);
         }
-        if($this->getUser() && $this->getUser()->getRoles()[0]=='ROLE_SUPER_ADMIN'){
-            header("Location:http://main.auto-save.local:82/login");
-            exit;
-        }
+
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

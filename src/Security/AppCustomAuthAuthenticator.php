@@ -104,12 +104,7 @@ class AppCustomAuthAuthenticator extends AbstractFormLoginAuthenticator
             $user->setEmail($payload['username']);
             $user->setRoles($payload['roles']);
             $user->setRefreshToken($result['refresh_token']);
-            try {
-                $result = $this->Client->getCurrentUser($user);
-            } catch (ClientUnavailableException $e) {
-                throw new \Exception($e->getMessage());
-            }
-           // $user->setBalance($result['balance']);
+
 
             return $user;
         }

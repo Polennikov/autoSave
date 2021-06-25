@@ -45,6 +45,7 @@
             <a class="lessonShow btn btn-secondary btn-lg mx-3" href="{{ path('app_logout') }}"> выход</a>
 
         {% else %}
+            <a class="register btn btn-secondary btn-lg mx-3" href="http://main.auto-save.local:82/login">Админка</a>
             <a class="register btn btn-secondary btn-lg mx-3" href="{{ path('register') }}">регистрация</a>
             <a class="register btn btn-secondary btn-lg mx-3" href="{{ path('app_login') }}"> вход</a>
         {% endif %}
