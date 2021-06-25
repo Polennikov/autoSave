@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DtpRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Model\DtpDto;
+use App\Security\User;
 
 /**
  * @ORM\Entity(repositoryClass=DtpRepository::class)

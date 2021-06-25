@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RelationDriverRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Security\User;
 
 /**
  * @ORM\Entity(repositoryClass=RelationDriverRepository::class)

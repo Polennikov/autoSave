@@ -496,7 +496,7 @@ class Client
     {
         // Запрос в сервис биллинг, получение данных
         $curl = curl_init($this->baseUri.'/api/v1/file/create');
-        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POST, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',

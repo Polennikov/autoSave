@@ -6,28 +6,30 @@
     <div class="card mb-4 shadow-sm">
 
         <h3 class="mx-auto my-sm-3">Договор</h3>
-        <div class="col-6 mx-auto my-sm-3">
-            <div class="card mb-4 shadow-sm">
 
-                <div class="card-header">
-                    <canvas id="img" style="border:1px solid #000000"></canvas>
-                </div>
 
-                <div class="card-body">
+        <div class="i-am-centered" style="margin: auto; max-width: 800px;">
+            <div class="row">
+                <canvas id="img" style="border:1px solid #000000"></canvas>
+            </div>
+        </div>
+
+        <div class="card-body"><
+            <div class="i-am-centered" style="margin: auto; max-width: 800px;">
+                <div class="row">
                     <input type="button" class="btn btn-outline-primary btn-lg mx-3" value="Сохранить" onClick="get()">
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
     <script type="text/javascript">
         var canv = document.getElementById("img"),
             c = canv.getContext("2d");
 
 
-
         var img = new Image();
-        var imgCheckFalse= new Image();
+        var imgCheckFalse = new Image();
         var imgCheckTrue = new Image();
 
         img.src = '/Blank/blanc_osago.png';
@@ -38,113 +40,110 @@
             canv.width = img.width;
             canv.height = img.height;
             c.drawImage(img, 0, 0);
-           /* c.drawImage(img1,345,367),*/
+            /* c.drawImage(img1,345,367),*/
             c.font = "14px Times New Roman";
             // date start
             var data = "{{ contract.date_start }}";
-            var dataFull = data[8]+' '+data[9]+'       '+data[5]+' '+data[6]+'            '+data[2]+' '+data[3];
-            c.fillText(dataFull, canv.width-142, canv.height-780);
+            var dataFull = data[8] + ' ' + data[9] + '       ' + data[5] + ' ' + data[6] + '            ' + data[2] + ' ' + data[3];
+            c.fillText(dataFull, canv.width - 142, canv.height - 780);
 
-            dataFull='0 0         0 0';
-            c.fillText(dataFull, canv.width-250, canv.height-780);
+            dataFull = '0 0         0 0';
+            c.fillText(dataFull, canv.width - 250, canv.height - 780);
 
             data = "{{ contract.date_end }}";
-            dataFull=data[8]+' '+data[9]+'       '+data[5]+' '+data[6]+'            '+data[2]+' '+data[3];
-            c.fillText(dataFull, canv.width-142, canv.height-757);
+            dataFull = data[8] + ' ' + data[9] + '       ' + data[5] + ' ' + data[6] + '            ' + data[2] + ' ' + data[3];
+            c.fillText(dataFull, canv.width - 142, canv.height - 757);
 
             //date start 1
             data = "{{ contract.date_start_one }}";
-            dataFull = data[8]+' '+data[9]+'      '+data[5]+' '+data[6]+'         '+data[2]+' '+data[3];
-            c.fillText(dataFull, canv.width-597, canv.height-697);
+            dataFull = data[8] + ' ' + data[9] + '      ' + data[5] + ' ' + data[6] + '         ' + data[2] + ' ' + data[3];
+            c.fillText(dataFull, canv.width - 597, canv.height - 697);
 
             data = "{{ contract.date_end_one }}";
-            dataFull=data[8]+' '+data[9]+'      '+data[5]+' '+data[6]+'         '+data[2]+' '+data[3];
-            c.fillText(dataFull, canv.width-440, canv.height-697);
+            dataFull = data[8] + ' ' + data[9] + '      ' + data[5] + ' ' + data[6] + '         ' + data[2] + ' ' + data[3];
+            c.fillText(dataFull, canv.width - 440, canv.height - 697);
 
             //name
             surname = "{{ user.surname }}";
             name = "{{ user.name }}";
             midname = "{{ user.midName }}";
-            dataFull=surname+'   '+name+'   '+midname;
-            c.fillText(dataFull, canv.width-600, canv.height-630);
+            dataFull = surname + '   ' + name + '   ' + midname;
+            c.fillText(dataFull, canv.width - 600, canv.height - 630);
 
-            dataFull=surname+'   '+name+'   '+midname;
-            c.fillText(dataFull, canv.width-600, canv.height-580);
+            dataFull = surname + '   ' + name + '   ' + midname;
+            c.fillText(dataFull, canv.width - 600, canv.height - 580);
             // auto
             marka = "{{ auto.marka }}";
             model = "{{ auto.model }}";
-            dataFull=marka+'   '+model;
-            c.fillText(dataFull, canv.width-600, canv.height-510);
+            dataFull = marka + '   ' + model;
+            c.fillText(dataFull, canv.width - 600, canv.height - 510);
 
             vin = "{{ contract.auto_vin }}";
-            var vinRes='';
+            var vinRes = '';
             for (let i = 0; i < vin.length; i++) {
-                vinRes+=vin[i]+'  ';
+                vinRes += vin[i] + '  ';
             }
-            dataFull=vinRes;
-            c.fillText(dataFull, canv.width-410, canv.height-510);
+            dataFull = vinRes;
+            c.fillText(dataFull, canv.width - 410, canv.height - 510);
 
             numberAuto = "{{ auto.number_sts }}";
-            var NumberAuto='';
+            var NumberAuto = '';
             for (let i = 0; i < numberAuto.length; i++) {
-                if(i==4){
-                    NumberAuto+='                               ';
+                if (i == 4) {
+                    NumberAuto += '                               ';
                 }
-                NumberAuto+=numberAuto[i];
+                NumberAuto += numberAuto[i];
             }
-            dataFull='Паспорт ТС                            '+NumberAuto;
-            c.fillText(dataFull, canv.width-400, canv.height-475);
+            dataFull = 'Паспорт ТС                            ' + NumberAuto;
+            c.fillText(dataFull, canv.width - 400, canv.height - 475);
 
 
             number = "{{ auto.number }}";
-            dataFull=number;
-            c.fillText(dataFull, canv.width-130, canv.height-510);
+            dataFull = number;
+            c.fillText(dataFull, canv.width - 130, canv.height - 510);
 
             c.fillText("{{ contract.amount }}", canv.width - 490, canv.height - 180);
 
-            c.fillText("{{ contract.marks }}", canv.width-610, canv.height -140);
+            c.fillText("{{ contract.marks }}", canv.width - 610, canv.height - 140);
 
             //limit
             nonLim = "{{ contract.non_limited }}";
-            dataFull=nonLim;
-            if(dataFull==0){
-                c.drawImage(imgCheckFalse,490,507);
-            }
-            else {
-                c.drawImage(imgCheckTrue,490,507);
+            dataFull = nonLim;
+            if (dataFull == 0) {
+                c.drawImage(imgCheckFalse, 490, 507);
+            } else {
+                c.drawImage(imgCheckTrue, 490, 507);
             }
             //trailer
             nonLim = "{{ contract.non_limited }}";
-            dataFull=nonLim;
-            if(dataFull==1){
-                c.drawImage(imgCheckTrue,285,342);
-            }
-            else {
-                c.drawImage(imgCheckTrue,325,342);
+            dataFull = nonLim;
+            if (dataFull == 1) {
+                c.drawImage(imgCheckTrue, 285, 342);
+            } else {
+                c.drawImage(imgCheckTrue, 325, 342);
             }
 
 
             users1 = "{{ users1 }}";
-            dataFull=users1;
-            c.fillText(dataFull, canv.width-610, canv.height-348);
+            dataFull = users1;
+            c.fillText(dataFull, canv.width - 610, canv.height - 348);
 
             users2 = "{{ users2 }}";
-            dataFull=users2;
-            if(users2.length>0) {
+            dataFull = users2;
+            if (users2.length > 0) {
                 c.fillText(dataFull, canv.width - 610, canv.height - 330);
             }
             users3 = "{{ users3 }}";
-            dataFull=users3;
+            dataFull = users3;
             //document.write(users3);
-            if(users3!='undefined') {
+            if (users3 != 'undefined') {
                 c.fillText(dataFull, canv.width - 610, canv.height - 312);
             }
             users4 = "{{ users4 }}";
-            dataFull=users4;
-            if(users4.length>0) {
+            dataFull = users4;
+            if (users4.length > 0) {
                 c.fillText(dataFull, canv.width - 610, canv.height - 295);
             }
-
 
 
         };

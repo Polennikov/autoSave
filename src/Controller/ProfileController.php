@@ -22,11 +22,11 @@ class ProfileController extends AbstractController
         );
 
         try {
-            $result = $Client->getCurrentUser($this->getUser());
-            $contracts=$Client->getContractAll($this->getUser());
-if(isset($contracts['code'])){
-    $contracts='null';
-}
+            $result    = $Client->getCurrentUser($this->getUser());
+            $contracts = $Client->getContractAll($this->getUser());
+            if (isset($contracts['code'])) {
+                $contracts = 'null';
+            }
 
         } catch (ClientUnavailableException $e) {
             throw new \Exception($e->getMessage());
@@ -34,9 +34,9 @@ if(isset($contracts['code'])){
 
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'ProfileController',
-            'contracts'=>$contracts,
-            'autos'=>$result['autos'],
-            'user' => $result
+            'contracts'       => $contracts,
+            'autos'           => $result['autos'],
+            'user'            => $result,
         ]);
     }
 }
